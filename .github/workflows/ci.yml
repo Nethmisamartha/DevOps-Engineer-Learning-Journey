@@ -25,3 +25,15 @@ jobs:
       - name: Test Application
         run: |
           curl --fail http://localhost:8080
+      - name: Test Application
+        run: |
+          for i in {1..10}; do
+            if curl --fail http://localhost:8080; then
+              echo "Application is running successfully!"
+              exit 0
+            fi
+            echo "Waiting for Nginx..."
+            sleep 3
+          done
+          echo "Application failed to start!"
+          exit 1
